@@ -22,12 +22,12 @@ namespace zaiborg
                 std::basic_string<char_t> c_format(
                         const std::basic_string<char_t>& format, Args ...args) {
 
-                        size_t size = format.size() + 50;
+                        int size = format.size() + 50;
                         std::basic_string<char_t> result;
                         for (;;)
                         {
                                 result.resize(size);
-                                size_t bytes_written = zaiborg::snprintf(
+                                int bytes_written = zaiborg::snprintf(
                                         const_cast<char_t*>(result.data()),
                                         result.size(),
                                         format.c_str(),
