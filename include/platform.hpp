@@ -46,11 +46,11 @@ namespace zaiborg
                 throw std::runtime_error("TODO: not implemented yet");
         }
 
-        inline static int snprintf(char* b, size_t s, char* f, ...) {
+        inline static int snprintf(char* b, size_t s, const char* f, ...) {
                 throw std::runtime_error("TODO: not implemented yet");
         }
 
-        inline static int snprintf(wchar_t* b, size_t s, wchar_t* f, ...) {
+        inline static int snprintf(wchar_t* b, size_t s, const wchar_t* f, ...) {
                 throw std::runtime_error("TODO: not implemented yet");
         }
 
