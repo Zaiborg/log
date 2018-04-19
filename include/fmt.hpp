@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include "platform.hpp"
+
 namespace zaiborg
 {
         namespace fmt
@@ -15,36 +17,6 @@ namespace zaiborg
                         return value.c_str();
                 }
 
-
-                template <typename ...Args>
-                size_t vsnprintf_stringtyped(
-                        std::string& result,
-                        const std::string& format,
-                        Args... args) {
-
-                        return snprintf(
-                                const_cast<std::string::value_type*>(
-                                        result.data()),
-                                result.size(),
-                                format.c_str(),
-                                args...);
-                }
-
-                template <typename ...Args>
-                size_t vsnprintf_stringtyped(
-                        std::wstring& result,
-                        const std::wstring&
-                        format,
-                        Args... args) {
-
-                        return _snwprintf_s(
-                                const_cast<std::wstring::value_type*>(
-                                        result.data()),
-                                result.size(),
-                                result.size(),
-                                format.c_str(),
-                                args...);
-                }
                 
                 template<typename char_t, typename ...Args>
                 std::basic_string<char_t> c_format(
@@ -55,9 +27,10 @@ namespace zaiborg
                         for (;;)
                         {
                                 result.resize(size);
-                                size_t bytes_written = vsnprintf_stringtyped(
-                                        result,
-                                        format,
+                                size_t bytes_written = zaiborg::snprintf(
+                                        const_cast<char_t*>(result.data()),
+                                        result.size(),
+                                        format.c_str(),
                                         convert_argument(args)...);
 
                                 if (bytes_written != -1 &&
