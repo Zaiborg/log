@@ -11,14 +11,6 @@
 
 namespace zaiborg
 {
-        inline static void change_console_to_ascii() {
-                _setmode(_fileno(stdout), _O_TEXT);
-        }
-
-        inline static void change_console_to_unicode() {
-                _setmode(_fileno(stdout), _O_WTEXT);
-        }
-
         inline static int snprintf(char* b, size_t s, const char* f, ...) {
                 va_list args;
                 va_start(args, f);
@@ -38,14 +30,6 @@ namespace zaiborg
 
 namespace zaiborg
 {
-        inline static void change_console_to_ascii() {
-                throw std::runtime_error("TODO: not implemented yet");
-        }
-
-        inline static void change_console_to_unicode() {
-                throw std::runtime_error("TODO: not implemented yet");
-        }
-
         inline static int snprintf(char* b, size_t s, const char* f, ...) {
                 throw std::runtime_error("TODO: not implemented yet");
         }

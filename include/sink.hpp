@@ -18,12 +18,16 @@ namespace zaiborg
         class ConsoleSink : public Sink
         {
         public:
+
+                ConsoleSink() {
+                        std::cout.imbue(std::locale(std::cout.getloc()));
+                        std::wcout.imbue(std::locale(std::wcout.getloc()));
+                }
+
                 virtual void write(const std::string& line) override {
-                        zaiborg::change_console_to_ascii();
                         std::cout << line << std::endl;
                 }
                 virtual void write(const std::wstring& line)override {
-                        zaiborg::change_console_to_unicode();
                         std::wcout << line << std::endl;
                 }
         };
