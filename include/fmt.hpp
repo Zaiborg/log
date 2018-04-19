@@ -37,7 +37,7 @@ namespace zaiborg
                                         bytes_written < size)
                                 {
                                         result.resize(bytes_written);
-                                        return result;
+                                        break;
                                 }
                                 if (bytes_written > -1)
                                         size = bytes_written + 1;
@@ -45,7 +45,6 @@ namespace zaiborg
                                         size *= 2;
                         }
 
-                        // TODO throw error?
                         return result;
                 }
         }
