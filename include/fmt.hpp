@@ -16,36 +16,6 @@ namespace zaiborg
                 }
 
 
-                template<typename char_t, typename ...Args>
-                std::basic_string<char_t> c_format(
-                        const std::basic_string<char_t>& format, Args ...args) {
-
-                        size_t size = format.size() + 50;
-                        std::basic_string<char_t> result;
-                        for (;;)
-                        {
-                                result.resize(size);
-                                size_t bytes_written = vsnprintf_stringtyped(
-                                        result,
-                                        format,
-                                        convert_argument(args)...);
-
-                                if (bytes_written != -1 &&
-                                        bytes_written < size)
-                                {
-                                        result.resize(bytes_written);
-                                        return result;
-                                }
-                                if (bytes_written > -1)
-                                        size = bytes_written + 1;
-                                else
-                                        size *= 2;
-                        }
-
-                        // TODO throw error?
-                        return result;
-                }
-
                 template <typename ...Args>
                 size_t vsnprintf_stringtyped(
                         std::string& result,
@@ -75,7 +45,36 @@ namespace zaiborg
                                 format.c_str(),
                                 args...);
                 }
+                
+                template<typename char_t, typename ...Args>
+                std::basic_string<char_t> c_format(
+                        const std::basic_string<char_t>& format, Args ...args) {
 
+                        size_t size = format.size() + 50;
+                        std::basic_string<char_t> result;
+                        for (;;)
+                        {
+                                result.resize(size);
+                                size_t bytes_written = vsnprintf_stringtyped(
+                                        result,
+                                        format,
+                                        convert_argument(args)...);
+
+                                if (bytes_written != -1 &&
+                                        bytes_written < size)
+                                {
+                                        result.resize(bytes_written);
+                                        return result;
+                                }
+                                if (bytes_written > -1)
+                                        size = bytes_written + 1;
+                                else
+                                        size *= 2;
+                        }
+
+                        // TODO throw error?
+                        return result;
+                }
         }
 }
 
