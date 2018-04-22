@@ -4,8 +4,6 @@
 
 #ifdef _WIN32
 
-#include <io.h>
-#include <fcntl.h>
 #include <iostream>
 #include <stdarg.h>
 
@@ -19,8 +17,9 @@ namespace zaiborg
 
                 va_list args;
                 va_start(args, f);
-                return vsnprintf(b, s, f, args);
+                int res = vsnprintf(b, s, f, args);
                 va_end(args);
+                return res;
         }
         
         inline static int snprintf(
@@ -31,8 +30,9 @@ namespace zaiborg
 
                 va_list args;
                 va_start(args, f);
-                return _vsnwprintf_s(b, s, s, f, args);
+                int res = _vsnwprintf_s(b, s, s, f, args);
                 va_end(args);
+                return res;
         }
 }
 
