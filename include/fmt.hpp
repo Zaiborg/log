@@ -20,7 +20,8 @@ namespace zaiborg
                 
                 template<typename char_t, typename ...Args>
                 std::basic_string<char_t> c_format(
-                        const std::basic_string<char_t>& format, Args ...args) {
+                        const std::basic_string<char_t>& format,
+                        Args ...args) {
 
                         int size = format.size() + 50;
                         std::basic_string<char_t> result;
