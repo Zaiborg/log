@@ -1,7 +1,5 @@
 #pragma once
 
-#include "platform.hpp"
-
 #include <string>
 #include <fstream>
 #include <codecvt>

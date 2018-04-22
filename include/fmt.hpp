@@ -4,8 +4,6 @@
 #include <stdarg.h>
 #include <wchar.h>
 
-#include "platform.hpp"
-
 namespace zaiborg
 {
         namespace fmt
