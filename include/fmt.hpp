@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <stdarg.h>
+#include <wchar.h>
 
 #include "platform.hpp"
 
@@ -17,7 +19,34 @@ namespace zaiborg
                         return value.c_str();
                 }
 
-                
+
+                inline static int snprintf(
+                        char* b,
+                        size_t s,
+                        const char* f,
+                        ...) {
+
+                        va_list args;
+                        va_start(args, f);
+                        int res = vsnprintf(b, s, f, args);
+                        va_end(args);
+                        return res;
+                }
+
+                inline static int snprintf(
+                        wchar_t* b,
+                        size_t s,
+                        const wchar_t* f,
+                        ...) {
+
+                        va_list args;
+                        va_start(args, f);
+                        int res = vswprintf(b, s, f, args);
+                        va_end(args);
+                        return res;
+                }
+
+               
                 template<typename char_t, typename ...Args>
                 std::basic_string<char_t> c_format(
                         const std::basic_string<char_t>& format,
@@ -28,7 +57,7 @@ namespace zaiborg
                         for (;;)
                         {
                                 result.resize(size);
-                                int bytes_written = zaiborg::snprintf(
+                                int bytes_written = fmt::snprintf(
                                         const_cast<char_t*>(result.data()),
                                         result.size(),
                                         format.c_str(),
