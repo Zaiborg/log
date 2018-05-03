@@ -35,20 +35,24 @@ namespace zaiborg
         public:
                 FileSink(const std::string& filename) 
                 {
-                        fs.open(filename.c_str(),
+                        afs.open(filename.c_str(),
+                                std::fstream::out | std::fstream::app);
+                        wfs.open(filename.c_str(),
                                 std::wfstream::out | std::wfstream::app);
-                        fs.imbue(std::locale(fs.getloc(), 
+
+                        wfs.imbue(std::locale(wfs.getloc(),
                                 new std::codecvt_utf8_utf16<wchar_t>()));
                 }
 
                 virtual void write(const std::wstring& line)override {
-                        fs << line << std::endl;
+                        wfs << line << std::endl;
                 }
                 virtual void write(const std::string& line) override {
-                        write(std::wstring(line.begin(), line.end()));
+                        afs << line << std::endl;;
                 }
 
-                std::wfstream fs;
+                std::fstream afs;
+                std::wfstream wfs;
 
         };
 }
